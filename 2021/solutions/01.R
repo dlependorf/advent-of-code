@@ -6,18 +6,12 @@
 ########################################################################################################################
 
 library(tidyverse)
-library(httr)
 
-session <- readChar("./session.txt", file.info("./session.txt")$size)
+data <- read_table(file="./2021/inputs/01.txt", col_names="depths")
 
 ########################################################################################################################
 # Part One                                                                                                             #
 ########################################################################################################################
-
-data <- "https://adventofcode.com/2021/day/1/input" %>%
-    GET(set_cookies(session=session)) %>%
-    content(encoding="UTF-8") %>%
-    read_table(col_names="depths")
 
 data %>%
     mutate(last_value=lag(depths, n=1),
